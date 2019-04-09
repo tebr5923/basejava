@@ -8,12 +8,10 @@ public class ArrayStorage {
     private int size = 0;
 
     void clear() {
-        if (size != 0) {
-            for (int a = 0; a < size; a++) {
-                storage[a] = null;
-            }
-            size = 0;
+        for (int i = 0; i < size; i++) {
+            storage[i] = null;
         }
+        size = 0;
     }
 
     void save(Resume r) {
@@ -24,12 +22,12 @@ public class ArrayStorage {
                 size++;
             } else {
                 // смотрим есть ли уже такой элeмент
-                for (int a = 0; a < size; a++) {
-                    if (storage[a].uuid == r.uuid) {
+                for (int i = 0; i < size; i++) {
+                    if (storage[i].uuid.equals(r.uuid)) {
                         isExist = true;
                     }
                 }
-                if (isExist == false) {
+                if (!isExist) {
                     storage[size] = r;
                     size++;
                 }
@@ -40,24 +38,22 @@ public class ArrayStorage {
     }
 
     Resume get(String uuid) {
-        if (size != 0) {
-            for (int a = 0; a < size; a++) {
-                if (storage[a].uuid == uuid)
-                    return storage[a];
+
+        for (int i = 0; i < size; i++) {
+            if (storage[i].uuid.equals(uuid)) {
+                return storage[i];
             }
         }
         return null;
     }
 
     void delete(String uuid) {
-        if (size != 0) {
-            for (int a = 0; a < size; a++) {
-                if (storage[a].uuid == uuid) {
-                    for (int k = a; k < size; k++) {
-                        storage[k] = storage[k + 1];
-                    }
-                    size--;
+        for (int i = 0; i < size; i++) {
+            if (storage[i].uuid.equals(uuid)) {
+                for (int k = i; k < size; k++) {
+                    storage[k] = storage[k + 1];
                 }
+                size--;
             }
         }
     }
